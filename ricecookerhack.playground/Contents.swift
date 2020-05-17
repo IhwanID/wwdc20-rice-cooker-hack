@@ -23,8 +23,13 @@ struct ContentView: View{
                 Text("RiceCooker Hack").font(.largeTitle).padding(.top, 100).foregroundColor(Color.white)
                 
                 Button(action: {
-                    Sounds.playBackSound(soundfile: "Goat.mp3")
-                    self.isAudio = true
+                    
+                    if Sounds.player?.isPlaying == true{
+                        Sounds.player?.stop()
+                       }else {
+                           Sounds.playBackSound(soundfile: "Goat.mp3")
+                       }
+                    self.isAudio.toggle()
                 }){
                     Image(uiImage: UIImage(named: isAudio ? "soundon.png" : "soundoff.png")!).renderingMode(.original)
                         .resizable().frame(width: 40,height: 40)
@@ -115,7 +120,7 @@ struct ContentView: View{
                     .padding(.bottom, 20)
                     
                 }.alert(isPresented: $showingAlert){
-                    Alert(title: Text(self.isCorrect ? "Yeeey!" : "Naaah!"), message: Text(self.isCorrect ? "Your \(self.result ?? "") 🍲 is ready to serve" : "☹️ I dont think those are good combination"), dismissButton: .default(Text(self.isCorrect ? "Okey!" : "Try Again!")))
+                    Alert(title: Text(self.isCorrect ? "Yaaaay!" : "Naaah!"), message: Text(self.isCorrect ? "Your \(self.result ?? "") 🍲 is ready to serve" : "☹️ I dont think those are good combination"), dismissButton: .default(Text(self.isCorrect ? "Okay!" : "Try Again!")))
                 }.padding(.top, 30)
                 
                 
